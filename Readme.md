@@ -164,22 +164,30 @@ $ git checkout tags/prueba_uno
 
 Crear una nueva rama
 ```bash
-$ git branch login
+$ git branch <nombre_rama>
 ```
 
 Cambiar de rama
 ```bash
-$ git switch login
+$ git switch <nombre_rama>
 ```
 
 También puedes cambiar de rama con:
 ```bash
-$ git checkout login
+$ git checkout <nombre_rama>
 ```
-
+También puedes crear una rama y cambiar a ella al mismo tiempo con:
+```bash
+$ git checkout -b <nombre_rama>
+```
 ## Fusionar ramas
 
-Fusionar una rama con otra (ejemplo: fusionar `main` en `login`)
+Para fusionar ramas usamos el comando ```merge``` pero primero hay que ubicandonos en la rama en la que queremos hacer los cambios:
+```bash
+$ git merge <nombre_rama_a_fusionar>
+```
+
+Fusionar una rama con otra (e.g.: fusionar `main` en `login`)
 ```bash
 $ git switch login
 $ git merge main
