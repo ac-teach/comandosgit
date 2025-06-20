@@ -11,18 +11,22 @@ Permite almacenar las credenciales en texto plano en el repositorio local.
 git config --local credential.helper "store"
 ```
 
-Define el editor de texto por defecto para Git (por ejemplo, `vim`, `emacs` o `nano`).
+Definir el editor de texto por defecto para Git (por ejemplo, `vim`, `emacs` o `nano`).
 ```bash
 git config --local core.editor emacs
 ```
 
-Establece los datos del usuario que se registrarán en los commits.
+Establecer, en la configuración local, los datos del usuario que se registrarán en los commits.
+Usuario:
 ```bash
 git config --local user.name "<nombre_usuario>"
+```
+Correo:
+```bash
 git config --local user.email "<correo_usuario>"
 ```
 
-Lista todas las configuraciones de Git activas.
+Listar todas las configuraciones de Git activas.
 ```bash
 git config --list
 ```
@@ -31,68 +35,68 @@ git config --list
 
 Muestra ayuda detallada para el comando especificado.
 ```bash
-$ git <comando> --help
+git <comando> --help
 ```
 
 ## Inicialización y estado del repositorio
 
 Crea un nuevo repositorio local de Git.
 ```bash
-$ git init
+git init
 ```
 
 Muestra los archivos modificados, no rastreados y listos para commit.
 ```bash
-$ git status
+git status
 ```
 
 ## Agregar y quitar archivos
 
 Agregar archivos al área de staging. Prepara archivos para el próximo commit.
 ```bash
-$ git add <archivo o carpeta>
+git add <archivo o carpeta>
 ```
 
 Agregar todos los archivos modificados
 ```bash
-$ git add .
+git add .
 ```
 
 Quita archivos del área de staging sin eliminarlos del sistema de archivos.
 ```bash
-$ git rm --cached <archivo>
+git rm --cached <archivo>
 ```
 
 ## Commits e historial
 
 Crear un commit. Guarda los cambios del área de staging al historial del repositorio.
 ```bash
-$ git commit -m "<mensaje del commit>"
+git commit -m "<mensaje del commit>"
 ```
 
 Ver el historial de commits. Muestra el historial completo de commits.
 ```bash
-$ git log
+git log
 ```
 
 Mostrar historial en forma de gráfico
 ```bash
-$ git log --graph
+git log --graph
 ```
 
 Muestra el historial compacto en una sola línea por commit
 ```bash
-$ git log --graph --pretty=oneline
+git log --graph --pretty=oneline
 ```
 
 Historial decorado y simplificado
 ```bash
-$ git log --graph --decorate --all --oneline
+git log --graph --decorate --all --oneline
 ```
 
 Crear un alias (personalizado) para mostrar historial de forma gráfica
 ```bash
-$ git config --local alias.tree "log --graph --decorate --all --oneline"
+git config --local alias.tree "log --graph --decorate --all --oneline"
 ```
 
 ## Ignorar archivos
@@ -110,89 +114,125 @@ node_modules/
 
 Mostrar diferencias entre ramas o archivos
 ```bash
-$ git diff
+git diff
 ```
 
 Comparar diferencias entre ramas
 ```bash
-$ git diff <rama-1> <rama-2>
+git diff <rama-1> <rama-2>
 ```
 
 ## Navegar en el historial
 
 Moverse a un commit anterior (modo "detached HEAD")
 ```bash
-$ git checkout <hash-del-commit>
+git checkout <hash-del-commit>
 ```
 
 Volver al último commit confirmado
 ```bash
-$ git checkout HEAD
+git checkout HEAD
 ```
 
-## Recuperación con `reset` y `reflog`
+## Recuperación con `reset`, `revert` y `reflog`
 
 Restaurar el repositorio a un commit anterior (elimina cambios posteriores)
+```git reset``` Permite deshacer cambios y mover el puntero HEAD a un commit específico. Hay tres modos principales:
+
+Mueve HEAD al commit especificado, pero mantiene los cambios en el área de preparación.
 ```bash
-$ git reset --hard <hash>
+git reset --soft <hash>
 ```
 
+(Por defecto) Mueve HEAD y deshace los cambios en el área de preparación, pero mantiene los cambios en el directorio de trabajo.
+```bash
+git reset --mixed <hash>
+```
+
+Mueve HEAD y descarta todos los cambios, tanto en el área de preparación como en el directorio de trabajo.
+```bash
+git rever <hash_anterior>
+```
+
+El comando `git revert` rea un nuevo commit que deshace los cambios de un commit específico. Es útil para deshacer cambios de forma segura en repositorios compartidos
+```bash
+git reset --hard <hash>
+```
 Ver todo el historial de referencias (incluye cambios de HEAD)
 ```bash
-$ git reflog
+$ git reflog <hash>
 ```
 
 ## Etiquetas (`tags`)
 
 Crear una etiqueta (tag)
 ```bash
-$ git tag prueba_uno
+git tag -a <nombre_etiqueta> -m "<mensaje>"
 ```
 
 Ver todas las etiquetas existentes
 ```bash
-$ git tag
+git tag
+```
+Revisar contenidos de los tags, detalles que lo componen, principalmente el commit.
+```bash
+git show <nombre_tag>
 ```
 
 Cambiarse a una etiqueta específica
 ```bash
-$ git checkout tags/prueba_uno
+git checkout <nombre_tag>
 ```
-
+Eliminar tag
+```bash
+git tag -d <nombre_tag>
+```
 
 ## Ramas (`branches`)
 
 Crear una nueva rama
 ```bash
-$ git branch <nombre_rama>
+git branch <nombre_rama>
+```
+
+Eliminar rama
+```bash
+git branch -D <rama>
 ```
 
 Cambiar de rama
 ```bash
-$ git switch <nombre_rama>
+git switch <nombre_rama>
 ```
 
 También puedes cambiar de rama con:
 ```bash
-$ git checkout <nombre_rama>
+git checkout <nombre_rama>
 ```
-También puedes crear una rama y cambiar a ella al mismo tiempo con:
+
+Puedes crear rama e inmediatamente moverse a ella con: 
 ```bash
-$ git checkout -b <nombre_rama>
+git switch -c <nombre>
 ```
+
+O también puedes con:
+```bash
+git checkout -b <nombre_rama>
+```
+
 ## Fusionar ramas
 
 Para fusionar ramas usamos el comando ```merge``` pero primero hay que ubicandonos en la rama en la que queremos hacer los cambios:
 ```bash
-$ git merge <nombre_rama_a_fusionar>
+git merge <nombre_rama_a_fusionar>
 ```
 
 Fusionar una rama con otra (e.g.: fusionar `main` en `login`)
 ```bash
-$ git switch login
-$ git merge main
+git switch login
+git merge main
 ```
-
+### Sobre el editor de texto ```vim``` en Windows
 > Si se abre un editor de texto (vim) para escribir el mensaje de merge:
 - Presiona **i** para entrar en modo edición  
 - Escribe tu mensaje (opcional)  
@@ -205,8 +245,8 @@ Cuando haya un conflicto de fusión:
 - Edita manualmente el archivo para resolver el conflicto  
 - Luego realiza un commit normal:
 ```bash
-$ git add <archivo>
-$ git commit -m "Conflicto resuelto"
+git add <archivo>
+git commit -m "Conflicto resuelto"
 ```
 
 ## Git Stash
@@ -215,34 +255,34 @@ Guarda cambios sin hacer commit, útil cuando necesitas cambiar de rama sin perd
 
 Guardar cambios sin hacer commit
 ```bash
-$ git stash
+git stash
 ```
 
 Ver lista de stashes
 ```bash
-$ git stash list
+git stash list
 ```
 
 Recuperar los cambios guardados y eliminarlos del stash
 ```bash
-$ git stash pop
+git stash pop
 ```
 
 Eliminar un stash manualmente
 ```bash
-$ git stash drop
+git stash drop
 ```
 
 ## Eliminar ramas
 
 Borrar una rama local
 ```bash
-$ git branch -d <rama>
+git branch -d <rama>
 ```
 
 Forzar el borrado una rama local
 ```bash
-$ git branch --delete --force <rama>
+git branch --delete --force <rama>
 ```
 > Aunque se borre, los commits aún existen si hay referencias a ellos.
 
@@ -254,45 +294,50 @@ $ git branch --delete --force <rama>
 
 Añadir origen remoto con clave SSH
 ```bash
-$ git remote add origin git@github.com:tu-usuario/mi-proyecto.git
+git remote add <nombre_origen> git@github.com:tu-usuario/mi-proyecto.git
 ```
 
 Envía los commits locales a la rama `main` en el repositorio remoto.
 ```bash
-$ git push -u origin main
+git push -u <nombre_origen> main
 ```
 
 Envía los cambios locales al remoto ya configurado.
 ```bash
-$ git push
+git push
 ```
 
 Actualiza el repositorio local con los cambios remotos.
 ```bash
-$ git pull
+git pull
 ```
-
-Clonar un repositorio remoto. Copia el contenido completo del repositorio remoto en el equipo local.
+## Clonar un repositorio remoto.
+Copia el contenido completo del repositorio remoto en el equipo local.
 ```bash
-$ git clone https://github.com/usuario/repositorio.git
+git clone https://github.com/usuario/repositorio.git
 ```
 
 Verificar repositorio remoto configurado. Muestra las URL del repositorio remoto configurado.
 ```bash
-$ git remote -v
+git remote -v
 ```
 
 ### Instalar GitHub CLI
 
-ver la version de gh instalado
+Ver la version de gh instalado
 ```bash
 gh  --version
 ```
-To authenticate to GitHub, run the following command from your terminal.
+Para autenticarse a GitHub, puedes utilizar el siguiente comando:
 ```bash
 gh auth login
 ```
-Select where you want to authenticate to:
+> - Se solicita inicar sesion con opcion a hacerlo desde el cli o desde un explorador web
+> - Escribir las credenciales
+> - Confirmar el pin de acceso y **Listo!**
+
+Puedes utilizar este comando cuando quieras cerrar la sesion:
 ```bash
+gh auth login
 
 ```
