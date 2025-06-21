@@ -339,5 +339,10 @@ gh auth login
 Puedes utilizar este comando cuando quieras cerrar la sesion:
 ```bash
 gh auth login
+```
 
+### Otros comandos
+Da un estilo personalizado a los logs
+```bash
+git config --global alias.superlog "log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
 ```
